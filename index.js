@@ -1,10 +1,12 @@
 #!/usr/bin/env node --harmony
 var co = require('co');
+var jclrz = require('json-colorz');
 var prompt = require('co-prompt');
 var program = require('commander');
 var request = require('superagent');
 
 const base_url = 'https://desktopapps.ryanair.com/v4/it-it/availability';
+const filter = '.trips[].dates[] | [ {date_time: .flights[].time[0], price: .flights[].regularFare.fares[0].amount}]'
 
 // Read arguments
 program
@@ -51,7 +53,28 @@ function action(from, to, date,time) {
                 console.error('An error occurred while retrieving dates', err)
                 process.exit(1)
             }
-            process.stdout.write(JSON.stringify(res.body, null, 4));
+            jclrz(extract_fares(res.body))
+            // jq.run(filter, res.body, {input: 'json', output: 'json'})
+            //   .then((output) => jclrz(output))
+            //   .catch(err => {
+            //       console.error(err);
+            //   })
         })
 
+}
+
+function extract_fares(res) {
+    let results = {
+        'currency': res['currency']
+    }
+
+    let trip = res['trips'][0]
+    trip_info = {
+        'origin': trip['originName'],
+        'destiantion': trip['destinationName'],
+    }
+
+    results = {...results, ...trip_info}
+
+    return results;
 }
