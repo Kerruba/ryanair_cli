@@ -1,0 +1,19 @@
+{
+  "name": "ryanair_cli",
+  "version": "0.0.1",
+  "description": "A simple CLI to query for ryanair flights",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "Apache-2.0",
+  "bin": {
+    "ryanair": "./index.js"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.15.1",
+    "superagent": "^3.8.3"
+  }
+}
