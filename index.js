@@ -7,8 +7,16 @@ var program = require('commander');
 var request = require('superagent');
 
 const base_url = 'https://desktopapps.ryanair.com/v4/it-it/availability';
-const jsonata_filter = jsonata("($curr := currency; trips.dates.flights.{'date': $substringBefore($split(time[0],'T')[1],'.'), 'price': regularFare.fares.publishedFare & ' ' & $curr}^(price))");
-const filter = '.trips[].dates[] | [ {date_time: .flights[].time[0], price: .flights[].regularFare.fares[0].amount}]'
+const jsonata_filter = jsonata(
+    `(
+        $curr := currency; 
+        trips.dates.flights.
+            {
+                'date': $substringBefore(time[0], 'T'),
+                'time': $substringAfter(time[0],'T') ~> $substringBefore('.'), 
+                'price': regularFare.fares.publishedFare & ' ' & $curr
+            }^(price)
+    )`);
 
 // Read arguments
 program
