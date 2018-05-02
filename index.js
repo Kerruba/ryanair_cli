@@ -1,8 +1,8 @@
 #!/usr/bin/env node --harmony
-var co = require('co');
+// var co = require('co');
 var jsonata = require('jsonata');
 var jclrz = require('json-colorz');
-var prompt = require('co-prompt');
+// var prompt = require('co-prompt');
 var program = require('commander');
 var request = require('superagent');
 
@@ -40,6 +40,7 @@ function action(from, to, date,time) {
         process.exit(1);
     }
 
+    let filterTime;
     if (typeof time === 'undefined') {
         console.log('Checking flights from %s to %s on date %s', from, to, date)
     } else {
@@ -51,6 +52,11 @@ function action(from, to, date,time) {
         'Destination': to,
         'Origin': from,
         'ToUs': 'AGREED'
+        // 'FlexDaysOut': 4
+        // 'IncludeConnectingFlights: true
+        // 'TEEN': 0,
+        // 'exists': true,
+        // 'promoCode: ''
     }
 
 
@@ -64,7 +70,13 @@ function action(from, to, date,time) {
                 process.exit(1)
             }
             // jclrz(extract_fares(res.body))
-            jclrz(jsonata_filter.evaluate(res.body));
+            results = jsonata_filter.evaluate(res.body);
+            if (typeof time !== 'undefined') {
+                results = results.filter(
+                    val => 
+                    Date.parse(`01/01/1970 ${val.time}`) >= Date.parse(`01/01/1970 ${time}`))
+            }
+            jclrz(results);
         });
 
 }
