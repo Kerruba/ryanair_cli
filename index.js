@@ -1,11 +1,13 @@
 #!/usr/bin/env node --harmony
 var co = require('co');
+var jsonata = require('jsonata');
 var jclrz = require('json-colorz');
 var prompt = require('co-prompt');
 var program = require('commander');
 var request = require('superagent');
 
 const base_url = 'https://desktopapps.ryanair.com/v4/it-it/availability';
+const jsonata_filter = jsonata("($curr := currency; trips.dates.flights.{'date': $substringBefore($split(time[0],'T')[1],'.'), 'price': regularFare.fares.publishedFare & ' ' & $curr}^(price))");
 const filter = '.trips[].dates[] | [ {date_time: .flights[].time[0], price: .flights[].regularFare.fares[0].amount}]'
 
 // Read arguments
@@ -53,13 +55,9 @@ function action(from, to, date,time) {
                 console.error('An error occurred while retrieving dates', err)
                 process.exit(1)
             }
-            jclrz(extract_fares(res.body))
-            // jq.run(filter, res.body, {input: 'json', output: 'json'})
-            //   .then((output) => jclrz(output))
-            //   .catch(err => {
-            //       console.error(err);
-            //   })
-        })
+            // jclrz(extract_fares(res.body))
+            jclrz(jsonata_filter.evaluate(res.body));
+        });
 
 }
 
