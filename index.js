@@ -19,7 +19,6 @@ const jsonata_filter = jsonata(
                 'duration': duration
             }^(price)
     )`);
-const time_filter_regex = /([>=<]{1,2})(\d{2}:\d{2}(?::\d{2})?)/
 const comparison_methods = {
     "<=": function(x, y) { return x <= y},
     ">=": function(x, y) { return x >= y},
@@ -31,8 +30,9 @@ const comparison_methods = {
 
 // Read arguments
 program
-    .option('-a, --arrival <filter>', 'Filter flights arrival time. Accept format "[<=>]{time}',  timeFilter)
-    .option('-d, --departure <filter>', 'Filter flight departure time. Takes format "[<=>]{time}"', timeFilter)
+    .option('-a, --arrival <filter>', 'Filter flights arrival time. Accepts format "[<=>]{time}',  timeFilter)
+    .option('-d, --departure <filter>', 'Filter flight departure time. Accepts format "[<=>]{time}"', timeFilter)
+    // .option('-p, --price <filter>', 'Filter flights price. Accepts format "[<=>{price}]"', priceFilter)
     .arguments('<from> <to> <date>')
     .action(action)
     .parse(process.argv);
@@ -99,6 +99,7 @@ function action(from, to, date, opt) {
 }
 
 function timeFilter(str) {
+    const time_filter_regex = /([>=<]{1,2})(\d{2}:\d{2}(?::\d{2})?)/
     if (time_filter_regex.test(str)) {
         parts = time_filter_regex.exec(str);
         return {
@@ -110,6 +111,26 @@ function timeFilter(str) {
     }
 }
 
+function priceFilter(str) {
+    const price_regex = /([>=<]{1,2})(\d{2}:\d{2}(?::\d{2})?)/
+    if (time_filter_regex.test(str)) {
+        parts = time_filter_regex.exec(str);
+        return {
+            "method": parts[1],
+            "time": parts[2]
+        }
+    } else {
+        throw new Error('Provided filter doesn\'t match the pattern')
+    }
+
+}
+
+/**
+ * 
+ * @param {List} results 
+ * @param {String} property 
+ * @param {TimeObj} time_obj 
+ */
 function filter_by_time_obj(results, property, time_obj) {
     return results.filter(val => {
         date_to_filter = Date.parse(`01/01/1970 ${val[property]}`)
@@ -117,19 +138,3 @@ function filter_by_time_obj(results, property, time_obj) {
         return comparison_methods[time_obj.method](date_to_filter, date_reference)
     })
 }
-
-// function extract_fares(res) {
-//     let results = {
-//         'currency': res['currency']
-//     }
-
-//     let trip = res['trips'][0]
-//     trip_info = {
-//         'origin': trip['originName'],
-//         'destiantion': trip['destinationName'],
-//     }
-
-//     results = {...results, ...trip_info}
-
-//     return results;
-// }
