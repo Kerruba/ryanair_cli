@@ -5,12 +5,14 @@ A simple CLI to query ryanair flights
 ## How to install
 
 You can install this script using npm from the root of the project
-```
+
+```bash
 npm install -g
 ```
 
 During development it's convenient to make the symlink on our path point to the index.js we're actually working on, using npm link.
-```
+
+```bash
 npm link
 ```
 
