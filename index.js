@@ -13,19 +13,32 @@ const jsonata_filter = jsonata(
         trips.dates.flights.
             {
                 'date': $substringBefore(time[0], 'T'),
-                'time': $substringAfter(time[0],'T') ~> $substringBefore('.'), 
-                'price': regularFare.fares.publishedFare & ' ' & $curr
+                'departure': $substringAfter(time[0],'T') ~> $substringBefore('.'), 
+                'arrival': $substringAfter(time[1],'T') ~> $substringBefore('.'), 
+                'price': regularFare.fares.publishedFare & ' ' & $curr,
+                'duration': duration
             }^(price)
     )`);
+const time_filter_regex = /([>=<]{1,2})(\d{2}:\d{2}(?::\d{2})?)/
+const comparison_methods = {
+    "<=": function(x, y) { return x <= y},
+    ">=": function(x, y) { return x >= y},
+    ">": function(x, y) { return x > y},
+    "<": function(x, y) { return x < y},
+    "==": function(x, y) { return x === y},
+    "!=": function(x, y) { return x !== y},
+}
 
 // Read arguments
 program
-    .arguments('<from> <to> <date> [time]')
+    .option('-a, --arrival <filter>', 'Filter flights arrival time. Accept format "[<=>]{time}',  timeFilter)
+    .option('-d, --departure <filter>', 'Filter flight departure time. Takes format "[<=>]{time}"', timeFilter)
+    .arguments('<from> <to> <date>')
     .action(action)
     .parse(process.argv);
 
 
-function action(from, to, date,time) {
+function action(from, to, date, opt) {
     if (typeof from === 'undefined') {
         console.error('no from has been provided!')
         process.exit(1);
@@ -40,12 +53,12 @@ function action(from, to, date,time) {
         process.exit(1);
     }
 
-    let filterTime;
-    if (typeof time === 'undefined') {
-        console.log('Checking flights from %s to %s on date %s', from, to, date)
-    } else {
-        console.log('Checking flights from %s to %s on date %s @ %s', from, to, date, time)    
-    }
+    // let filterTime;
+    // if (typeof time === 'undefined') {
+    //     console.log('Checking flights from %s to %s on date %s', from, to, date)
+    // } else {
+    //     console.log('Checking flights from %s to %s on date %s @ %s', from, to, date, time)    
+    // }
 
     let params = {
         'DateOut': date,
@@ -69,30 +82,54 @@ function action(from, to, date,time) {
                 console.error('An error occurred while retrieving dates', err)
                 process.exit(1)
             }
-            // jclrz(extract_fares(res.body))
-            results = jsonata_filter.evaluate(res.body);
-            if (typeof time !== 'undefined') {
-                results = results.filter(
-                    val => 
-                    Date.parse(`01/01/1970 ${val.time}`) >= Date.parse(`01/01/1970 ${time}`))
+
+            let results = jsonata_filter.evaluate(res.body);
+
+            if (opt.departure) {
+                results = filter_by_time_obj(results, 'departure', opt.departure);
             }
+
+            if (opt.arrival) {
+                results = filter_by_time_obj(results, 'arrival', opt.arrival);
+            }
+
             jclrz(results);
         });
 
 }
 
-function extract_fares(res) {
-    let results = {
-        'currency': res['currency']
+function timeFilter(str) {
+    if (time_filter_regex.test(str)) {
+        parts = time_filter_regex.exec(str);
+        return {
+            "method": parts[1],
+            "time": parts[2]
+        }
+    } else {
+        throw new Error('Provided filter doesn\'t match the pattern')
     }
-
-    let trip = res['trips'][0]
-    trip_info = {
-        'origin': trip['originName'],
-        'destiantion': trip['destinationName'],
-    }
-
-    results = {...results, ...trip_info}
-
-    return results;
 }
+
+function filter_by_time_obj(results, property, time_obj) {
+    return results.filter(val => {
+        date_to_filter = Date.parse(`01/01/1970 ${val[property]}`)
+        date_reference = Date.parse(`01/01/1970 ${time_obj.time}`)
+        return comparison_methods[time_obj.method](date_to_filter, date_reference)
+    })
+}
+
+// function extract_fares(res) {
+//     let results = {
+//         'currency': res['currency']
+//     }
+
+//     let trip = res['trips'][0]
+//     trip_info = {
+//         'origin': trip['originName'],
+//         'destiantion': trip['destinationName'],
+//     }
+
+//     results = {...results, ...trip_info}
+
+//     return results;
+// }
