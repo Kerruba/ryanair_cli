@@ -4,18 +4,20 @@
   "description": "A simple CLI to query for ryanair flights",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "license": "Apache-2.0",
   "bin": {
-    "ryanair": "./index.js"
+    "ryanair": "./lib/ryanair.js"
   },
   "dependencies": {
+    "chai": "^4.1.2",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
     "commander": "^2.15.1",
     "json-colorz": "^0.2.7",
     "jsonata": "^1.5.3",
+    "mocha": "^5.1.1",
     "moment": "^2.22.1",
     "npm": "^6.0.0",
     "numeral": "^2.0.6",
