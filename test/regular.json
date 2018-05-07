@@ -1,0 +1,162 @@
+{
+    "termsOfUse": "https://www.ryanair.com/ie/en/corporate/terms-of-use=AGREED",
+    "currency": "GBP",
+    "currPrecision": 2,
+    "trips": [
+        {
+            "origin": "STN",
+            "originName": "Londra (Stansted)",
+            "destination": "TSF",
+            "destinationName": "Venezia (Treviso)",
+            "dates": [
+                {
+                    "dateOut": "2018-06-01T00:00:00.000",
+                    "flights": [
+                        {
+                            "faresLeft": -1,
+                            "flightKey": "FR~ 792~ ~~STN~06/01/2018 06:20~TSF~06/01/2018 09:20~",
+                            "infantsLeft": 16,
+                            "regularFare": {
+                                "fareKey": "0~C~~CZ6LOW~BND6~~2~X",
+                                "fareClass": "C",
+                                "fares": [
+                                    {
+                                        "type": "ADT",
+                                        "amount": 49.97,
+                                        "count": 1,
+                                        "hasDiscount": false,
+                                        "publishedFare": 49.97,
+                                        "discountInPercent": 0,
+                                        "hasPromoDiscount": false
+                                    }
+                                ]
+                            },
+                            "segments": [
+                                {
+                                    "segmentNr": 0,
+                                    "origin": "STN",
+                                    "destination": "TSF",
+                                    "flightNumber": "FR 792",
+                                    "time": [
+                                        "2018-06-01T06:20:00.000",
+                                        "2018-06-01T09:20:00.000"
+                                    ],
+                                    "timeUTC": [
+                                        "2018-06-01T05:20:00.000Z",
+                                        "2018-06-01T07:20:00.000Z"
+                                    ],
+                                    "duration": "02:00"
+                                }
+                            ],
+                            "flightNumber": "FR 792",
+                            "time": [
+                                "2018-06-01T06:20:00.000",
+                                "2018-06-01T09:20:00.000"
+                            ],
+                            "timeUTC": [
+                                "2018-06-01T05:20:00.000Z",
+                                "2018-06-01T07:20:00.000Z"
+                            ],
+                            "duration": "02:00"
+                        },
+                        {
+                            "faresLeft": -1,
+                            "flightKey": "FR~ 794~ ~~STN~06/01/2018 13:10~TSF~06/01/2018 16:10~",
+                            "infantsLeft": 17,
+                            "regularFare": {
+                                "fareKey": "0~V~~VZ6LOW~BND6~~2~X",
+                                "fareClass": "V",
+                                "fares": [
+                                    {
+                                        "type": "ADT",
+                                        "amount": 60.17,
+                                        "count": 1,
+                                        "hasDiscount": false,
+                                        "publishedFare": 60.17,
+                                        "discountInPercent": 0,
+                                        "hasPromoDiscount": false
+                                    }
+                                ]
+                            },
+                            "segments": [
+                                {
+                                    "segmentNr": 0,
+                                    "origin": "STN",
+                                    "destination": "TSF",
+                                    "flightNumber": "FR 794",
+                                    "time": [
+                                        "2018-06-01T13:10:00.000",
+                                        "2018-06-01T16:10:00.000"
+                                    ],
+                                    "timeUTC": [
+                                        "2018-06-01T12:10:00.000Z",
+                                        "2018-06-01T14:10:00.000Z"
+                                    ],
+                                    "duration": "02:00"
+                                }
+                            ],
+                            "flightNumber": "FR 794",
+                            "time": [
+                                "2018-06-01T13:10:00.000",
+                                "2018-06-01T16:10:00.000"
+                            ],
+                            "timeUTC": [
+                                "2018-06-01T12:10:00.000Z",
+                                "2018-06-01T14:10:00.000Z"
+                            ],
+                            "duration": "02:00"
+                        },
+                        {
+                            "faresLeft": 4,
+                            "flightKey": "FR~ 798~ ~~STN~06/01/2018 17:55~TSF~06/01/2018 20:55~",
+                            "infantsLeft": 12,
+                            "regularFare": {
+                                "fareKey": "0~H~~HZ6LOW~BND6~~2~X",
+                                "fareClass": "H",
+                                "fares": [
+                                    {
+                                        "type": "ADT",
+                                        "amount": 41.81,
+                                        "count": 1,
+                                        "hasDiscount": false,
+                                        "publishedFare": 41.81,
+                                        "discountInPercent": 0,
+                                        "hasPromoDiscount": false
+                                    }
+                                ]
+                            },
+                            "segments": [
+                                {
+                                    "segmentNr": 0,
+                                    "origin": "STN",
+                                    "destination": "TSF",
+                                    "flightNumber": "FR 798",
+                                    "time": [
+                                        "2018-06-01T17:55:00.000",
+                                        "2018-06-01T20:55:00.000"
+                                    ],
+                                    "timeUTC": [
+                                        "2018-06-01T16:55:00.000Z",
+                                        "2018-06-01T18:55:00.000Z"
+                                    ],
+                                    "duration": "02:00"
+                                }
+                            ],
+                            "flightNumber": "FR 798",
+                            "time": [
+                                "2018-06-01T17:55:00.000",
+                                "2018-06-01T20:55:00.000"
+                            ],
+                            "timeUTC": [
+                                "2018-06-01T16:55:00.000Z",
+                                "2018-06-01T18:55:00.000Z"
+                            ],
+                            "duration": "02:00"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "serverTimeUTC": "2018-05-07T12:35:26.267Z"
+}

@@ -1,0 +1,20 @@
+{
+    "termsOfUse": "https://www.ryanair.com/ie/en/corporate/terms-of-use=AGREED",
+    "currency": "EUR",
+    "currPrecision": 2,
+    "trips": [
+        {
+            "origin": "AHO",
+            "originName": "Alghero",
+            "destination": "TSF",
+            "destinationName": "Venezia (Treviso)",
+            "dates": [
+                {
+                    "dateOut": "2018-06-01T00:00:00.000",
+                    "flights": []
+                }
+            ]
+        }
+    ],
+    "serverTimeUTC": "2018-05-07T12:35:57.801Z"
+}
