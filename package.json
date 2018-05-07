@@ -17,13 +17,13 @@
     "commander": "^2.15.1",
     "json-colorz": "^0.2.7",
     "jsonata": "^1.5.3",
-    "mocha": "^5.1.1",
     "moment": "^2.22.1",
     "npm": "^6.0.0",
     "numeral": "^2.0.6",
     "superagent": "^3.8.3"
   },
   "devDependencies": {
-    "eslint": "^4.19.1"
+    "eslint": "^4.19.1",
+    "mocha": "^5.1.1"
   }
 }
