@@ -63,3 +63,4 @@ typings/
 # vscode
 .vscode/
 lib/*.json
+env.sh
