@@ -19,7 +19,7 @@ function readFile(path) {
 }
 
 describe('General', function () {
-    describe('#timeFilters', function () {
+    describe('timeFilters', function () {
         it('should convert >16:00 to timeFilter object', function () {
             let filterObject = utilities.timeFilter('>16:00');
             filterObject.should.be.deep.equal({
@@ -41,7 +41,7 @@ describe('General', function () {
         })
     })
 
-    describe("#priceFilters", function () {
+    describe("priceFilters", function () {
         it('should convert >16.00 to timeFilter object', function () {
             let filterObject = utilities.priceFilter('==16.00');
             filterObject.should.be.deep.equal({
