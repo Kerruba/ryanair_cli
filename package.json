@@ -2,7 +2,7 @@
   "name": "ryanair_cli",
   "version": "0.0.1",
   "description": "A simple CLI to query for ryanair flights",
-  "main": "index.js",
+  "main": "ryanair.js",
   "scripts": {
     "test": "mocha"
   },
